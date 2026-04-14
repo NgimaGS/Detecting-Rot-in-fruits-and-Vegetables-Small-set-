@@ -34,11 +34,51 @@ The models are trained and evaluated on combination datasets to cover a wide spe
 - `jojogo9/freshness_of_fruits_and_veges_256`
 - `Densu341/Fresh-rotten-fruit`
 
-## Dependencies
-- PyTorch
-- Ultralytics (YOLO)
-- Transformers (from Hugging Face)
-- Hugging Face `datasets`
-- Scikit-learn
-- Matplotlib
-- Pillow
+## Repository Structure
+
+```
+final/
+│
+├── 📓 Notebooks (Training & Experimentation)
+│   ├── CLIP_Freshness_Prediction_and_object_detection.ipynb   ← V2 Final Pipeline
+│   ├── Clip_Apple.ipynb                                        ← V2 CLIP Experimentation
+│   └── rot_detection_project.ipynb                             ← V1 YOLOv8 + EfficientNet
+│
+├── 🖥️ Application (Packaged Desktop App)
+│   └── pantry_app_release/
+│       ├── app.py                  ← CustomTkinter GUI (Phase 3)
+│       ├── pantry_engine.py        ← ONNX Inference Engine (Phase 2)
+│       ├── yolo_pantry.onnx        ← Exported YOLOv8 model
+│       ├── clip_smart.onnx         ← Exported CLIP freshness model
+│       └── dist/app.app            ← Double-clickable macOS bundle
+│
+├── 🤖 Models
+│   ├── onnx/
+│   │   ├── yolo_pantry.onnx        ← Lightweight YOLOv8 (12 MB)
+│   │   └── clip_smart.onnx         ← Lightweight CLIP-MLP (335 MB, split)
+│   └── pytorch/
+│       ├── clip_freshness_smart.pth   ← Trained CLIP-MLP weights (V2 Best)
+│       ├── clip_freshness_pantry.pth  ← Trained CLIP-MLP weights (V2 Alt)
+│       ├── efficientnet_rot_detector.pth ← V1 EfficientNet weights
+│       └── yolov8n.pt                 ← YOLOv8n base weights
+│
+├── 🖼️ Test Images
+│   └── test_images/
+│       ├── apple.webp
+│       ├── apples.webp
+│       ├── rotten-apple.webp
+│       ├── rotten_brown.webp
+│       └── rotton_apple.webp
+│
+├── 🛠️ Scripts
+│   ├── export_onnx.py              ← Converts PyTorch models → ONNX
+│   └── app.py                      ← Standalone GUI entry point
+│
+└── 📄 Docs
+    ├── README.md
+    ├── .gitignore
+    └── Project Proposal_ Pantry Management.pdf
+```
+
+> **Note:** Large model files (`*.pth`, `*.pt`, `*.onnx.data`) are excluded from Git via `.gitignore` due to GitHub's 100MB file size limit.
+
