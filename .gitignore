@@ -1,12 +1,18 @@
-# Byte-compiled / optimized / DLL files
+# -----------------------------------------------
+# Python
+# -----------------------------------------------
 __pycache__/
 *.py[cod]
 *$py.class
 
+# -----------------------------------------------
 # Jupyter Notebook
-.ipynb_checkpoints
+# -----------------------------------------------
+.ipynb_checkpoints/
 
+# -----------------------------------------------
 # OS generated files
+# -----------------------------------------------
 .DS_Store
 .DS_Store?
 ._*
@@ -15,11 +21,26 @@ __pycache__/
 ehthumbs.db
 Thumbs.db
 
+# -----------------------------------------------
 # Virtual environments
+# -----------------------------------------------
 venv/
 env/
 .venv/
+pantry_app_release/.venv/
 
-# Ignore large model weights (Optional, usually we ignore them but since they are in the directory and you want to push, we can just let them be pushed if small enough, but github limits files > 100MB. The models here are ~33MB and ~6MB so they can be pushed).
+# -----------------------------------------------
+# PyInstaller build artifacts
+# -----------------------------------------------
+pantry_app_release/build/
+pantry_app_release/dist/
+pantry_app_release/*.spec
+
+# -----------------------------------------------
+# Large model weight files (> GitHub 100MB limit)
+# Store these in models/ folder locally only.
+# -----------------------------------------------
 *.pth
 *.pt
+models/onnx/*.data
+pantry_app_release/*.data
