@@ -29,6 +29,32 @@ The baseline pipeline architecture built in the early stages of the project.
   - Surface mold (grey/white fuzzy growth).
   - Standard discoloration.
 
+## Getting Started: How to Run
+
+Follow this order to explore or run the project components:
+
+### 1. Research & Training (`/Notebooks`)
+If you want to understand the logic or retrain the models:
+- Run `CLIP_Freshness_Prediction_and_object_detection.ipynb`. This is the core research file that contains the full object detection and CLIP-based freshness logic.
+
+### 2. Model Preparation (ONNX Export)
+The desktop application requires ONNX versions of the models to run efficiently without PyTorch. If these files (`.onnx` and `.onnx.data`) are missing from the `pantry_app_release/` folder:
+1. Ensure the PyTorch weights (`yolov8n.pt` and `clip_freshness_smart.pth`) are in the project root.
+2. Run the export script: `python export_onnx.py`.
+3. Move the newly generated `yolo_pantry.onnx`, `clip_smart.onnx`, and `clip_smart.onnx.data` into the `pantry_app_release/` folder.
+
+### 3. Running the Desktop Application (`/pantry_app_release`)
+To launch the actual management interface:
+1. Navigate to the `pantry_app_release/` folder.
+2. Activate the virtual environment: `source .venv/bin/activate`.
+3. Run the app: `python app.py`.
+**Note:** Ensure all `.onnx` and `.onnx.data` files are present in this folder as the app loads them on startup.
+
+### 3. Creating/Running the Standalone Executable
+If you want to use the app without a Python environment:
+- **Build**: Run `pyinstaller app.spec` inside the `pantry_app_release/` folder.
+- **Run**: Open the generated `dist/PantryManager.app` or run the `dist/PantryManager` binary.
+
 ## Datasets
 The models are trained and evaluated on combination datasets to cover a wide spectrum of freshness:
 - `jojogo9/freshness_of_fruits_and_veges_256`
@@ -46,11 +72,15 @@ final/
 │
 ├── 🖥️ Application (Packaged Desktop App)
 │   └── pantry_app_release/
-│       ├── app.py                  ← CustomTkinter GUI (Phase 3)
-│       ├── pantry_engine.py        ← ONNX Inference Engine (Phase 2)
+│       ├── app.py                  ← CustomTkinter GUI (Primary Entry Point)
+│       ├── pantry_engine.py        ← ONNX Inference Engine
+│       ├── app.spec                ← PyInstaller Configuration
 │       ├── yolo_pantry.onnx        ← Exported YOLOv8 model
 │       ├── clip_smart.onnx         ← Exported CLIP freshness model
-│       └── dist/app.app            ← Double-clickable macOS bundle
+│       ├── dist/                   ← **NEW**: Contains standalone executables
+│       │   ├── PantryManager       ← Single binary executable
+│       │   └── PantryManager.app   ← macOS Application bundle
+│       └── .venv/                  ← Local python environment
 │
 ├── 🤖 Models
 │   ├── onnx/
