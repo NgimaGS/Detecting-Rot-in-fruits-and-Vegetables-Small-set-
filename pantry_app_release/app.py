@@ -30,9 +30,7 @@ class PantryApp(ctk.CTk):
         self.grid_columnconfigure(1, weight=1)
         self.grid_rowconfigure(0, weight=1)
 
-        # ==========================================
         # 1. Left Sidebar Frame (width = 200)
-        # ==========================================
         self.sidebar_frame = ctk.CTkFrame(self, width=200, corner_radius=0)
         self.sidebar_frame.grid(row=0, column=0, sticky="nsew")
         self.sidebar_frame.grid_rowconfigure(4, weight=1)
@@ -55,9 +53,7 @@ class PantryApp(ctk.CTk):
         self.export_btn = ctk.CTkButton(self.sidebar_frame, text="Export to CSV", command=self.export_csv)
         self.export_btn.grid(row=3, column=0, padx=20, pady=10)
 
-        # ==========================================
         # 2. Main Right Frame
-        # ==========================================
         self.main_frame = ctk.CTkFrame(self)
         self.main_frame.grid(row=0, column=1, sticky="nsew", padx=20, pady=20)
         self.main_frame.grid_columnconfigure(0, weight=1)
@@ -155,7 +151,7 @@ class PantryApp(ctk.CTk):
                 box_color = color_map.get(label, 'cyan')
                 
                 # Draw the main bounding box line
-                draw.rectangle([x1, y1, x2, y2], outline=box_color, width=4)
+                draw.rectangle([x1, y1, x2, y2], outline=box_color, width=3)
                 
                 # Format text
                 text = f"{label} ({int(conf*100)}%)"
@@ -173,7 +169,7 @@ class PantryApp(ctk.CTk):
             self.display_image(orig_img)
 
             # 3. Print Output format to Textbox
-            summary = "--- PANTRY INVENTORY SUMMARY ---\n\n"
+            summary = "PANTRY INVENTORY SUMMARY \n\n"
             total = 0
             
             for item, count in self.results["inventory"].items():
